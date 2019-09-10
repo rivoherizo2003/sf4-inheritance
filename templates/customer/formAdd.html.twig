@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% form_theme formCustomer 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-3"><h4>Add new customer</h4></div>
+        <div class="col-9">
+            <a href="{{ path('app_author_register') }}">Add author</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            {{ form_start(formCustomer) }}
+            {{ form_row(formCustomer.firstName) }}
+            {{ form_row(formCustomer.lastName) }}
+            {{ form_row(formCustomer.dateOfBirth) }}
+            {{ form_row(formCustomer.criticAuthor) }}
+            {{ form_row(formCustomer.preferredBook) }}
+            <button type="submit" class="btn btn-sm btn-primary">Ajouter</button>
+            {{ form_end(formCustomer) }}
+        </div>
+        <div class="col-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">FirstName & Name</th>
+                    <th scope="col">critics author</th>
+                    <th scope="col">preferred book</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for customer in acCustomer %}
+                    <tr>
+                        <th scope="row">{{ customer.id }}</th>
+                        <td>{{ customer }}</td>
+                        <td>{{ customer.criticAuthor }}</td>
+                        <td>{{ customer.preferredBook }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

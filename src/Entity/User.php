@@ -9,12 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"user"="User", "author"="Author", "customer"="Customer"})
- *
+ * @ORM\HasLifecycleCallbacks()
  */
 class User
 {
-	use TimeEntity;
-
+	use BaseEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

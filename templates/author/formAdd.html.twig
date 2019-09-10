@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% form_theme formAuthor 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-3"><h4>Add new author</h4></div>
+        <div class="col-9">
+            <a href="{{ path('app_customer_register') }}">Add customer</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            {{ form_start(formAuthor) }}
+                {{ form_row(formAuthor.firstName) }}
+                {{ form_row(formAuthor.lastName) }}
+                {{ form_row(formAuthor.dateOfBirth) }}
+                {{ form_row(formAuthor.famousName) }}
+                {{ form_row(formAuthor.website) }}
+                <button type="submit" class="btn btn-sm btn-primary">Ajouter</button>
+            {{ form_end(formAuthor) }}
+        </div>
+        <div class="col-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">FirstName & Name</th>
+                    <th scope="col">critics author</th>
+                    <th scope="col">preferred book</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for author in acAuthor %}
+                    <tr>
+                        <th scope="row">{{ author.id }}</th>
+                        <td>{{ author }}</td>
+                        <td>{{ author.famousName }}</td>
+                        <td>{{ author.website }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

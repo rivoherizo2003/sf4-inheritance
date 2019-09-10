@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\InterfaceClass\BaseEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,10 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"person"="Person","customer"="Customer", "author"="Author"})
+ * @ORM\HasLifecycleCallbacks()
  */
-class Person
+class Person implements BaseEntityInterface
 {
-	use TimeEntity;
+	use BaseEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -75,4 +77,25 @@ class Person
 
         return $this;
     }
+
+	/**
+	 * @ORM\PreUpdate()
+	 */
+	public function setUpdate()
+	{
+		$this->setLastUpdated(new \DateTime());
+	}
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function setAddDate()
+	{
+		$this->setAddedDate(new \DateTime());
+	}
+
+	public function __toString()
+	{
+		return $this->getFirstName(). " " .$this->getLastName();
+	}
 }

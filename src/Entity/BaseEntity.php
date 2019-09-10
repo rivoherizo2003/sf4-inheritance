@@ -8,23 +8,22 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait TimeEntity
+ * Class BaseEntity
  * @package App\Entity
- * @ORM\HasLifecycleCallbacks()
  */
-trait TimeEntity
+trait BaseEntity
 {
+
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $addedDate;
 
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	protected $lastUpdated;
 
@@ -58,21 +57,5 @@ trait TimeEntity
 	public function setLastUpdated($lastUpdated): void
 	{
 		$this->lastUpdated = $lastUpdated;
-	}
-
-	/**
-	 * @ORM\PreUpdate()
-	 */
-	public function setUpdate()
-	{
-		$this->setLastUpdated(new \DateTime());
-	}
-
-	/**
-	 * @ORM\PrePersist()
-	 */
-	public function setAddDate()
-	{
-		$this->setAddedDate(new \DateTime());
 	}
 }
